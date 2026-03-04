@@ -1,0 +1,839 @@
+<img src="https://hassan.bd/img/brand/ha-logo6.webp">
+
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>সচরাচর জিজ্ঞাসা (FAQ) | hassan.bd</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'SolaimanLipi', 'Noto Sans Bengali', Arial, sans-serif;
+      background: #f4f6f9;
+      color: #222;
+      line-height: 1.8;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: #1a3c5e;
+      color: #fff;
+      padding: 36px 20px 28px;
+      text-align: center;
+    }
+    header h1 { font-size: 2rem; margin-bottom: 8px; }
+    header p { font-size: 1rem; color: #c8d8e8; }
+
+    /* ===== SEARCH BAR ===== */
+    .search-wrapper {
+      background: #1a3c5e;
+      padding: 0 20px 28px;
+      display: flex;
+      justify-content: center;
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      max-width: 680px;
+      background: #fff;
+      border-radius: 50px;
+      padding: 6px 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+    }
+    .search-box input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      font-family: inherit;
+      padding: 8px 10px;
+      background: transparent;
+      color: #222;
+    }
+    .search-box .search-icon {
+      color: #1a3c5e;
+      font-size: 1.3rem;
+      margin-right: 4px;
+    }
+    .search-box .clear-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: #aaa;
+      padding: 0 4px;
+      display: none;
+    }
+    .search-box .clear-btn.visible { display: inline; }
+
+    /* ===== NO RESULT ===== */
+    .no-result {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+      color: #888;
+      font-size: 1rem;
+    }
+    .no-result span { font-size: 2.5rem; display: block; margin-bottom: 10px; }
+
+    /* ===== RESULT COUNT ===== */
+    .result-info {
+      max-width: 860px;
+      margin: 18px auto 0;
+      padding: 0 20px;
+      font-size: 0.9rem;
+      color: #555;
+      min-height: 24px;
+    }
+    .result-info strong { color: #1a3c5e; }
+
+    /* ===== CONTAINER ===== */
+    .container {
+      max-width: 860px;
+      margin: 16px auto;
+      padding: 0 20px 60px;
+    }
+
+    /* ===== SECTION TITLE ===== */
+    .section-title {
+      font-size: 1.25rem;
+      color: #1a3c5e;
+      border-left: 5px solid #e8a020;
+      padding-left: 12px;
+      margin: 32px 0 14px;
+      transition: opacity 0.3s;
+    }
+
+    /* ===== FAQ ITEM ===== */
+    .faq-item {
+      background: #fff;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+    .faq-item:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.11); }
+    .faq-item.hidden { display: none; }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 16px 20px;
+      text-align: left;
+      font-size: 0.98rem;
+      font-weight: bold;
+      color: #1a3c5e;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      font-family: inherit;
+    }
+    .faq-question:hover { background: #eef4fb; }
+    .faq-question .icon {
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: #e8a020;
+      flex-shrink: 0;
+      transition: transform 0.3s;
+    }
+    .faq-question.active { background: #eef4fb; }
+    .faq-question.active .icon { transform: rotate(45deg); }
+
+    .faq-answer {
+      display: none;
+      padding: 4px 20px 18px;
+      font-size: 0.95rem;
+      color: #444;
+      border-top: 1px solid #e8eef5;
+    }
+    .faq-answer p { margin-top: 10px; }
+    .faq-answer ul { margin: 8px 0 0 22px; }
+    .faq-answer ul li { margin-bottom: 5px; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #e8a020;
+      color: #fff;
+      font-size: 0.72rem;
+      min-width: 24px;
+      height: 24px;
+      padding: 0 6px;
+      border-radius: 4px;
+      margin-right: 8px;
+      flex-shrink: 0;
+    }
+
+    /* ===== HIGHLIGHT ===== */
+    mark {
+      background: #fff3cd;
+      color: #222;
+      border-radius: 3px;
+      padding: 0 2px;
+    }
+
+    /* ===== SECTION HIDDEN ===== */
+    .section-group.all-hidden .section-title { display: none; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #1a3c5e;
+      color: #c8d8e8;
+      text-align: center;
+      padding: 22px;
+      font-size: 0.88rem;
+    }
+    footer a { color: #e8a020; text-decoration: none; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.5rem; }
+      .faq-question { font-size: 0.92rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <h1>&#9878; সচরাচর জিজ্ঞাসা (FAQ)</h1>
+  <p>আয়কর, কোম্পানি আইন, VAT ও ব্যবসায়িক আইন সংক্রান্ত সাধারণ প্রশ্নোত্তর</p>
+</header>
+
+<!-- SEARCH BAR -->
+<div class="search-wrapper">
+  <div class="search-box">
+    <span class="search-icon">&#128269;</span>
+    <input type="text" id="faqSearch" placeholder="প্রশ্ন খুঁজুন... যেমন: TIN, VAT, কোম্পানি নিবন্ধন" autocomplete="off" />
+    <button class="clear-btn" id="clearBtn" title="মুছুন">&#10005;</button>
+  </div>
+</div>
+
+<!-- RESULT INFO -->
+<div class="result-info" id="resultInfo"></div>
+
+<!-- NO RESULT -->
+<div class="no-result" id="noResult">
+  <span>&#128269;</span>
+  আপনার অনুসন্ধানে কোনো প্রশ্ন পাওয়া যায়নি।<br>
+  অন্য কীওয়ার্ড দিয়ে চেষ্টা করুন।
+</div>
+
+<!-- FAQ CONTENT -->
+<div class="container" id="faqContainer">
+
+  <!-- ১. আয়কর -->
+  <div class="section-group" id="group-1">
+    <div class="section-title">&#128181; আয়কর সংক্রান্ত</div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">১</span> বাংলাদেশে ব্যক্তিগত করমুক্ত আয়ের সীমা কত?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>২০২৪-২৫ করবর্ষ অনুযায়ী, সাধারণ পুরুষ করদাতার জন্য করমুক্ত আয়সীমা <strong>৩,৫০,০০০ টাকা</strong>। মহিলা করদাতা ও ৬৫ বছরের বেশি বয়স্ক করদাতাদের জন্য এই সীমা <strong>৪,০০,০০০ টাকা</strong> এবং প্রতিবন্ধী করদাতাদের জন্য <strong>৪,৭৫,০০০ টাকা</strong>।</p>
+        <p><em>সূত্র: আয়কর আইন, ২০২৩ (তৃতীয় তফসিল); NBR</em></p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">২</span> আয়কর রিটার্ন দাখিলের শেষ তারিখ কোনটি?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>ব্যক্তি করদাতাদের জন্য প্রতি বছর <strong>৩০ নভেম্বর</strong> আয়কর রিটার্ন দাখিলের নির্ধারিত শেষ তারিখ। কোম্পানির ক্ষেত্রে অ্যাকাউন্টিং বছর শেষের ৬ মাসের মধ্যে রিটার্ন দাখিল করতে হয়। নির্ধারিত সময়ের মধ্যে রিটার্ন না দিলে জরিমানা ও সুদ প্রযোজ্য হয়।</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">৩</span> টিআইএন (TIN) কী এবং কীভাবে নিবন্ধন করবো?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>TIN (Taxpayer Identification Number) হলো করদাতার অনন্য শনাক্তকারী নম্বর। NBR-এর ই-সেবা পোর্টালে অনলাইনে বিনামূল্যে নিবন্ধন করা যায়। প্রয়োজনীয় তথ্য:</p>
+        <ul>
+          <li>জাতীয় পরিচয়পত্র (NID) নম্বর</li>
+          <li>মোবাইল নম্বর</li>
+          <li>ঠিকানা ও পেশার তথ্য</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">৪</span> উৎসে কর কর্তন (TDS) কী? কখন প্রযোজ্য হয়?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>উৎসে কর কর্তন (Tax Deducted at Source) হলো আয় পরিশোধের সময় উৎস থেকে নির্দিষ্ট হারে কর কেটে রাখার পদ্ধতি। বেতন, ঠিকাদার পেমেন্ট, পেশাদার সেবা ফি, ভাড়া, ব্যাংক সুদ ইত্যাদি ক্ষেত্রে TDS প্রযোজ্য।</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">৫</span> কর রেয়াত (Tax Rebate) কীভাবে পাওয়া যায়?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>নির্দিষ্ট খাতে বিনিয়োগের বিপরীতে কর রেয়াত পাওয়া যায়। রেয়াতযোগ্য বিনিয়োগ:</p>
+        <ul>
+          <li>জীবন বীমার প্রিমিয়াম</li>
+          <li>সরকারি সঞ্চয়পত্র</li>
+          <li>ডিপিএস (DPS)</li>
+          <li>স্বীকৃত প্রভিডেন্ট ফান্ড</li>
+          <li>শেয়ার বাজারে বিনিয়োগ</li>
+        </ul>
+        <p>সাধারণত মোট বিনিয়োগের উপর ১৫% হারে রেয়াত প্রযোজ্য।</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">৬</span> কর আপিল বা আপত্তি কীভাবে দায়ের করবো?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>কর নির্ধারণী আদেশের বিরুদ্ধে সংক্ষুব্ধ করদাতা আদেশ প্রাপ্তির <strong>৪৫ দিনের মধ্যে</strong> উপ-কর কমিশনারের কার্যালয়ে আপত্তি দায়ের করতে পারেন। আপত্তি নিষ্পত্তিতে সন্তুষ্ট না হলে কর আপিলাত ট্রাইব্যুনালে আপিল করা যায়।</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ২. কোম্পানি আইন -->
+  <div class="section-group" id="group-2">
+    <div class="section-title">&#127970; কোম্পানি আইন সংক্রান্ত</div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">৭</span> বাংলাদেশে কোম্পানি নিবন্ধন কীভাবে করা যায়?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>বাংলাদেশে কোম্পানি নিবন্ধনের জন্য <strong>RJSC</strong>-এ আবেদন করতে হয়। মূল ধাপগুলো:</p>
+        <ul>
+          <li>নাম ছাড়পত্র গ্রহণ</li>
+          <li>মেমোরেন্ডাম ও আর্টিকেলস অব অ্যাসোসিয়েশন প্রস্তুত</li>
+          <li>অনলাইন পোর্টালে (roc.gov.bd) আবেদন ও ফি জমা</li>
+          <li>ইনকর্পোরেশন সার্টিফিকেট প্রাপ্তি</li>
+        </ul>
+        <p><em>আইনি ভিত্তি: কোম্পানি আইন, ১৯৯৪</em></p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">৮</span> প্রাইভেট লিমিটেড ও পাবলিক লিমিটেড কোম্পানির পার্থক্য কী?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <ul>
+          <li><strong>শেয়ারহোল্ডার:</strong> প্রাইভেটে সর্বোচ্চ ৫০ জন; পাবলিকে সীমা নেই</li>
+          <li><strong>শেয়ার হস্তান্তর:</strong> প্রাইভেটে সীমাবদ্ধ; পাবলিকে মুক্ত</li>
+          <li><strong>পরিচালক:</strong> প্রাইভেটে ন্যূনতম ২ জন; পাবলিকে ন্যূনতম ৩ জন</li>
+          <li><strong>শেয়ার বাজার:</strong> শুধু পাবলিক কোম্পানি স্টক এক্সচেঞ্জে তালিকাভুক্ত হতে পারে</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">৯</span> বার্ষিক সাধারণ সভা (AGM) কোম্পানির জন্য কেন বাধ্যতামূলক?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>কোম্পানি আইন, ১৯৯৪ অনুযায়ী প্রতিটি কোম্পানিকে প্রতি বছর AGM অনুষ্ঠান করতে হয়। এতে আর্থিক বিবরণী অনুমোদন, পরিচালক ও অডিটর নিয়োগ, লভ্যাংশ ঘোষণা করা হয়। AGM না করলে RJSC-তে জরিমানা প্রযোজ্য।</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">১০</span> কোম্পানির পরিচালনা পর্ষদের দায়িত্ব ও ক্ষমতা কী?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <ul>
+          <li>কোম্পানির কৌশলগত পরিকল্পনা ও ব্যবস্থাপনা</li>
+          <li>আর্থিক সিদ্ধান্ত গ্রহণ ও অনুমোদন</li>
+          <li>শেয়ারহোল্ডারদের প্রতি জবাবদিহিতা নিশ্চিতকরণ</li>
+          <li>আইনি ও নিয়ন্ত্রক সম্মতি রক্ষা</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">১১</span> কোম্পানির সংঘস্মারক (Memorandum) পরিবর্তন করা যায় কি?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>হ্যাঁ। বিশেষ সাধারণ সভায় বিশেষ রেজোলিউশন পাস করে RJSC-তে নির্ধারিত ফর্মে আবেদন করতে হয়। কোম্পানির নাম, উদ্দেশ্য, অনুমোদিত মূলধন পরিবর্তনের ক্ষেত্রে পৃথক প্রক্রিয়া অনুসরণ করতে হয়।</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">১২</span> কোম্পানি বিলুপ্তি বা ওয়াইন্ডিং আপ কী এবং কখন হয়?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <ul>
+          <li><strong>স্বেচ্ছামূলক (Voluntary):</strong> শেয়ারহোল্ডারদের সিদ্ধান্তে</li>
+          <li><strong>আদালতের আদেশে (Compulsory):</strong> ঋণ পরিশোধে অক্ষমতা বা আইন লঙ্ঘনের কারণে</li>
+        </ul>
+        <p>বিলুপ্তির পর সম্পদ বিক্রির মাধ্যমে পাওনাদারদের দাবি পরিশোধ করা হয়।</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ৩. ব্যবসায়িক আইন -->
+  <div class="section-group" id="group-3">
+    <div class="section-title">&#128200; ব্যবসায়িক আইন সংক্রান্ত</div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">১৩</span> বাংলাদেশে ব্যবসায়িক চুক্তি বৈধ হওয়ার শর্তগুলো কী কী?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>চুক্তি আইন, ১৮৭২ অনুযায়ী একটি চুক্তি বৈধ হতে নিম্নোক্ত উপাদান থাকা আবশ্যক:</p>
+        <ul>
+          <li>সক্ষম পক্ষ (Competent Parties)</li>
+          <li>অফার ও সম্মতি (Offer & Acceptance)</li>
+          <li>বিবেচনা (Consideration)</li>
+          <li>স্বাধীন সম্মতি (Free Consent)</li>
+          <li>আইনসম্মত উদ্দেশ্য (Lawful Object)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">১৪</span> ট্রেড লাইসেন্স কীভাবে নবায়ন করতে হয়?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>ট্রেড লাইসেন্স প্রতি বছর নির্ধারিত ফি প্রদান করে নবায়ন করতে হয়। ঢাকায় সিটি কর্পোরেশনের ওয়ান-স্টপ সার্ভিস সেন্টার বা অনলাইনে আবেদন করা যায়। প্রয়োজনীয় কাগজপত্র: পূর্ববর্তী লাইসেন্স কপি, হালনাগাদ ট্যাক্স পরিশোধের রসিদ, ভাড়া চুক্তি।</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">১৫</span> মেধাসম্পদ (Intellectual Property) সুরক্ষা কীভাবে নিবো?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <ul>
+          <li><strong>ট্রেডমার্ক:</strong> DPDT-এ নিবন্ধন</li>
+          <li><strong>কপিরাইট:</strong> বাংলাদেশ কপিরাইট অফিসে নিবন্ধন</li>
+          <li><strong>পেটেন্ট:</strong> DPDT-এ আবেদন</li>
+        </ul>
+        <p><em>সূত্র: ট্রেডমার্কস আইন, ২০০৯; কপিরাইট আইন, ২০০০</em></p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">১৬</span> অংশীদারি ব্যবসা (Partnership) নিবন্ধন করা কি বাধ্যতামূলক?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>বাংলাদেশে অংশীদারি ব্যবসা নিবন্ধন বাধ্যতামূলক নয়, তবে RJSC-তে নিবন্ধন করলে আইনি সুরক্ষা বাড়ে এবং ব্যাংক ঋণ, সরকারি টেন্ডার ইত্যাদিতে সুবিধা পাওয়া যায়।</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">১৭</span> বাংলাদেশে বিদেশি বিনিয়োগের নিয়মকানুন কী?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <ul>
+          <li>বেশিরভাগ খাতে ১০০% বিদেশি মালিকানা অনুমোদিত</li>
+          <li>BIDA-এর মাধ্যমে নিবন্ধন করতে হয়</li>
+          <li>মুনাফা ও মূলধন প্রত্যাবাসনের সুবিধা বিদ্যমান</li>
+          <li>EPZ-এ বিশেষ সুবিধা প্রযোজ্য</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">১৮</span> ভোক্তা অধিকার লঙ্ঘন হলে কোথায় অভিযোগ করবো?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>ভোক্তা অধিকার সংরক্ষণ আইন, ২০০৯ অনুযায়ী <strong>জাতীয় ভোক্তা অধিকার সংরক্ষণ অধিদপ্তর</strong>-এ অভিযোগ দায়ের করা যায়। হটলাইন: <strong>১৬১২১</strong>।</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">১৯</span> ব্যবসায়িক বিরোধ নিষ্পত্তিতে সালিশ (Arbitration) কি কার্যকর?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>হ্যাঁ। সালিশি আইন, ২০০১ অনুযায়ী বাণিজ্যিক বিরোধে সালিশ একটি কার্যকর পদ্ধতি। এটি আদালতের তুলনায় দ্রুত, ব্যয়সাশ্রয়ী এবং গোপনীয়। সালিশ পুরস্কার আদালতের মাধ্যমে বলবৎযোগ্য।</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">২০</span> ব্যবসায়িক পরামর্শ সেবা নিতে কীভাবে যোগাযোগ করবো?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <ul>
+          <li>🌐 ওয়েবসাইট: <a href="https://hassan.bd" target="_blank">hassan.bd</a></li>
+          <li>📧 ইমেইলের মাধ্যমে অ্যাপয়েন্টমেন্ট নিন</li>
+          <li>📞 সরাসরি কল বা WhatsApp-এ যোগাযোগ করুন</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ৪. VAT -->
+  <div class="section-group" id="group-4">
+    <div class="section-title">&#128179; মূল্য সংযোজন কর (VAT) সংক্রান্ত</div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">২১</span> VAT নিবন্ধন কখন বাধ্যতামূলক?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>বার্ষিক টার্নওভার <strong>৫০ লক্ষ টাকা</strong> বা তার বেশি হলে VAT নিবন্ধন বাধ্যতামূলক। NBR-এর অনলাইন পোর্টালে BIN (Business Identification Number) নিবন্ধন করতে হয়।</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">২২</span> VAT রিটার্ন দাখিলের নিয়ম কী?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>প্রতি মাসে পরবর্তী মাসের <strong>১৫ তারিখের মধ্যে</strong> মাসিক VAT রিটার্ন (Mushak-9.1) দাখিল করতে হয়। রিটার্নে বিক্রয়, ক্রয় এবং নেট VAT দায়ের হিসাব প্রদর্শন করতে হয়।</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">২৩</span> ইনপুট ট্যাক্স ক্রেডিট (ITC) কী এবং কীভাবে দাবি করবো?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>ITC হলো ব্যবসায়িক ক্রয়ের উপর পরিশোধিত VAT-এর বিপরীতে আউটপুট VAT থেকে ছাড় পাওয়ার সুবিধা। দাবির জন্য:</p>
+        <ul>
+          <li>বৈধ Mushak-6.3 চালান থাকতে হবে</li>
+          <li>পণ্য বা সেবা ব্যবসায়িক উদ্দেশ্যে ক্রয় হতে হবে</li>
+          <li>মাসিক রিটার্নে সঠিকভাবে প্রদর্শন করতে হবে</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">২৪</span> VAT অডিটের সময় কী কী দলিল প্রস্তুত রাখতে হবে?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>নিম্নোক্ত দলিল ন্যূনতম ৫ বছর সংরক্ষণ করুন:</p>
+        <ul>
+          <li>সকল ক্রয় ও বিক্রয় চালান (Mushak-6.2 ও 6.3)</li>
+          <li>মাসিক VAT রিটার্নের কপি</li>
+          <li>ব্যাংক স্টেটমেন্ট ও স্টক রেজিস্টার</li>
+          <li>চুক্তিপত্র ও ডেলিভারি চালান</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ৫. শ্রম আইন -->
+  <div class="section-group" id="group-5">
+    <div class="section-title">&#128104;&#8205;&#127981; শ্রম আইন ও কর্মসংস্থান সংক্রান্ত</div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">২৫</span> বাংলাদেশে কর্মচারী ছাঁটাইয়ের আইনি প্রক্রিয়া কী?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <ul>
+          <li>কমপক্ষে <strong>১২০ দিনের</strong> নোটিশ দিতে হবে</li>
+          <li>প্রতি বছর চাকরির জন্য ৩০ দিনের মজুরি হারে ক্ষতিপূরণ</li>
+          <li>সরকারি কর্তৃপক্ষকে অবহিত করতে হবে</li>
+        </ul>
+        <p><em>সূত্র: বাংলাদেশ শ্রম আইন, ২০০৬</em></p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">২৬</span> কর্মচারীর প্রভিডেন্ট ফান্ড (PF) নিবন্ধন কীভাবে করবো?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <ul>
+          <li>শ্রম অধিদপ্তরে আবেদন করতে হয়</li>
+          <li>নিয়োগকর্তা ও কর্মচারী উভয়ে সমান হারে চাঁদা দেন (সাধারণত মূল বেতনের ৮-১০%)</li>
+          <li>নিয়োগকর্তার অংশদান কর-সুবিধাযোগ্য ব্যয় হিসেবে গণ্য হয়</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">২৭</span> কর্মক্ষেত্রে যৌন হয়রানি সংক্রান্ত আইনি সুরক্ষা কী আছে?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>সুপ্রিম কোর্টের ২০০৯ সালের নির্দেশনা অনুযায়ী প্রতিটি প্রতিষ্ঠানে লিখিত নীতিমালা ও অভিযোগ নিষ্পত্তির জন্য অভ্যন্তরীণ কমিটি থাকতে হবে। ভুক্তভোগী শ্রম আদালতেও অভিযোগ দায়ের করতে পারেন।</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ৬. আমদানি-রপ্তানি -->
+  <div class="section-group" id="group-6">
+    <div class="section-title">&#128666; আমদানি-রপ্তানি ও শুল্ক সংক্রান্ত</div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">২৮</span> আমদানি-রপ্তানি লাইসেন্স কীভাবে পাবো?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p><strong>CCI&E</strong>-এ আবেদন করতে হয়। প্রয়োজনীয় কাগজপত্র:</p>
+        <ul>
+          <li>ট্রেড লাইসেন্স ও TIN সার্টিফিকেট</li>
+          <li>ব্যাংক সলভেন্সি সার্টিফিকেট</li>
+          <li>IRC/ERC ফি জমার রসিদ</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">২৯</span> রপ্তানি আয়ের উপর কি কোনো কর সুবিধা আছে?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <ul>
+          <li>তৈরি পোশাক, চামড়া ও পাট খাতে হ্রাসকৃত কর হার</li>
+          <li>রপ্তানি প্রণোদনা (Cash Incentive) বিদ্যমান</li>
+          <li>EPZ-এ অবস্থিত প্রতিষ্ঠানের জন্য বিশেষ কর ছাড়</li>
+          <li>ডিউটি ড্রব্যাক সুবিধা</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ৭. ব্যাংকিং ও আর্থিক আইন -->
+  <div class="section-group" id="group-7">
+    <div class="section-title">&#127981; ব্যাংকিং ও আর্থিক আইন সংক্রান্ত</div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">৩০</span> ঋণ খেলাপি হলে আইনি পরিণতি কী?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <ul>
+          <li>জামানত সম্পদ নিলামে বিক্রয়</li>
+          <li>CRIB রিপোর্টে নেতিবাচক তথ্য, ফলে নতুন ঋণ বন্ধ</li>
+          <li>পরিচালক হিসেবে নিষেধাজ্ঞা ও ট্রাভেল ব্যান</li>
+        </ul>
+        <p><em>সূত্র: অর্থঋণ আদালত আইন, ২০০৩</em></p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">৩১</span> মানি লন্ডারিং প্রতিরোধ আইনে ব্যবসায়ীদের কী দায়িত্ব আছে?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <ul>
+          <li>গ্রাহক পরিচয় যাচাই (KYC) বজায় রাখা</li>
+          <li>সন্দেহজনক লেনদেন রিপোর্ট (STR) করা</li>
+          <li>রেকর্ড ন্যূনতম ৫ বছর সংরক্ষণ</li>
+        </ul>
+        <p>আইন লঙ্ঘনে সর্বোচ্চ ১২ বছরের কারাদণ্ডের বিধান রয়েছে।</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ৮. ডিজিটাল ও ই-কমার্স -->
+  <div class="section-group" id="group-8">
+    <div class="section-title">&#128187; ডিজিটাল ব্যবসা ও ই-কমার্স সংক্রান্ত</div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">৩২</span> ই-কমার্স ব্যবসার জন্য কোন আইনি নিবন্ধন প্রয়োজন?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <ul>
+          <li>ট্রেড লাইসেন্স ও TIN সার্টিফিকেট</li>
+          <li>VAT নিবন্ধন (টার্নওভার সীমা অনুযায়ী)</li>
+          <li>ডিজিটাল কমার্স পরিচালনা নির্দেশিকা, ২০২১ মেনে চলা</li>
+          <li>বাংলাদেশ ব্যাংকের পেমেন্ট গেটওয়ে অনুমোদন</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">৩৩</span> অনলাইন ব্যবসায় ডেটা সুরক্ষার আইনি দায়িত্ব কী?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>ডিজিটাল নিরাপত্তা আইন, ২০১৮ অনুযায়ী গ্রাহকের ব্যক্তিগত তথ্য সুরক্ষিত রাখতে হবে। তৃতীয় পক্ষের কাছে তথ্য হস্তান্তর করতে হলে গ্রাহকের সম্মতি আবশ্যক। তথ্য ফাঁসে ফৌজদারি দায় হতে পারে।</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">৩৪</span> ডিজিটাল স্বাক্ষর কি বাংলাদেশে আইনগতভাবে বৈধ?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>হ্যাঁ। তথ্য ও যোগাযোগ প্রযুক্তি আইন, ২০০৬ অনুযায়ী ডিজিটাল স্বাক্ষর বাংলাদেশে আইনগতভাবে বৈধ এবং কাগজের স্বাক্ষরের সমতুল্য। DSCCA অনুমোদিত প্রতিষ্ঠান থেকে সার্টিফিকেট নিতে হবে।</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span><span class="badge">৩৫</span> স্টার্টআপ কোম্পানির জন্য কোনো বিশেষ কর সুবিধা আছে কি?</span>
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <ul>
+          <li>তথ্যপ্রযুক্তি খাতে অনুমোদিত কোম্পানির জন্য নির্দিষ্ট মেয়াদে কর অবকাশ (Tax Holiday)</li>
+          <li>স্টার্টআপ বাংলাদেশ লিমিটেডের মাধ্যমে সরকারি ফান্ডিং সুবিধা</li>
+          <li>হাই-টেক পার্কে স্থাপিত প্রতিষ্ঠানের জন্য বিশেষ সুবিধা</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<footer>
+  <p>&copy; ২০২৬ <a href="https://hassan.bd">hassan.bd</a> | সকল স্বত্ব সংরক্ষিত</p>
+  <p style="margin-top:6px; font-size:0.82rem;">এই তথ্য শুধুমাত্র সাধারণ শিক্ষামূলক উদ্দেশ্যে। নির্দিষ্ট আইনি পরামর্শের জন্য আমাদের সাথে যোগাযোগ করুন।</p>
+</footer>
+
+<script>
+  // ===== ACCORDION =====
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const answer = btn.nextElementSibling;
+      const isOpen = answer.style.display === 'block';
+      document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
+      document.querySelectorAll('.faq-question').forEach(b => b.classList.remove('active'));
+      if (!isOpen) {
+        answer.style.display = 'block';
+        btn.classList.add('active');
+      }
+    });
+  });
+
+  // ===== SEARCH =====
+  const searchInput = document.getElementById('faqSearch');
+  const clearBtn    = document.getElementById('clearBtn');
+  const noResult    = document.getElementById('noResult');
+  const resultInfo  = document.getElementById('resultInfo');
+
+  // Store original question text (without badge numbers) for searching
+  const allItems = document.querySelectorAll('.faq-item');
+  const originalTexts = [];
+  allItems.forEach(item => {
+    originalTexts.push(item.querySelector('.faq-question span:first-child').innerHTML);
+  });
+
+  function escapeRegex(str) {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(text, keyword) {
+    if (!keyword) return text;
+    const regex = new RegExp(`(${escapeRegex(keyword)})`, 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+  }
+
+  function doSearch(keyword) {
+    keyword = keyword.trim();
+    let visibleCount = 0;
+
+    allItems.forEach((item, i) => {
+      const questionBtn = item.querySelector('.faq-question span:first-child');
+      const answerDiv   = item.querySelector('.faq-answer');
+      const fullText    = item.innerText.toLowerCase();
+
+      if (!keyword || fullText.includes(keyword.toLowerCase())) {
+        item.classList.remove('hidden');
+        // Highlight keyword in question
+        if (keyword) {
+          questionBtn.innerHTML = highlight(originalTexts[i], keyword);
+        } else {
+          questionBtn.innerHTML = originalTexts[i];
+        }
+        // Auto-open if search active & only 1 match expected
+        if (keyword) {
+          answerDiv.style.display = 'block';
+          item.querySelector('.faq-question').classList.add('active');
+        } else {
+          answerDiv.style.display = 'none';
+          item.querySelector('.faq-question').classList.remove('active');
+        }
+        visibleCount++;
+      } else {
+        item.classList.add('hidden');
+        questionBtn.innerHTML = originalTexts[i];
+        answerDiv.style.display = 'none';
+        item.querySelector('.faq-question').classList.remove('active');
+      }
+    });
+
+    // Show/hide section titles based on visible children
+    document.querySelectorAll('.section-group').forEach(group => {
+      const visibleInGroup = group.querySelectorAll('.faq-item:not(.hidden)').length;
+      group.classList.toggle('all-hidden', visibleInGroup === 0);
+    });
+
+    // No result message
+    noResult.style.display = visibleCount === 0 ? 'block' : 'none';
+
+    // Result count info
+    if (keyword) {
+      resultInfo.innerHTML = `"<strong>${keyword}</strong>" অনুসন্ধানে <strong>${visibleCount}টি</strong> প্রশ্ন পাওয়া গেছে।`;
+    } else {
+      resultInfo.innerHTML = '';
+    }
+
+    // Clear button visibility
+    clearBtn.classList.toggle('visible', keyword.length > 0);
+  }
+
+  searchInput.addEventListener('input', () => doSearch(searchInput.value));
+
+  clearBtn.addEventListener('click', () => {
+    searchInput.value = '';
+    doSearch('');
+    searchInput.focus();
+  });
+</script>
+
+</body>
+</html>
+
